@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Resin Dilution Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f4f6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
+    }
+
+    h1 {
+      color: #2c3e50;
+    }
+
+    .calculator {
+      background-color: white;
+      padding: 20px 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px;
+      width: 100%;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #2c3e50;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Resin Dilution Calculator</h1>
+  <div class="calculator">
+    <label for="initialResin">Initial Resin %</label>
+    <input type="number" id="initialResin" step="0.01" placeholder="e.g. 80" required>
+
+    <label for="finalResin">Final Resin %</label>
+    <input type="number" id="finalResin" step="0.01" placeholder="e.g. 60" required>
+
+    <label for="initialWeight">Initial Weight (kg)</label>
+    <input type="number" id="initialWeight" step="0.01" placeholder="e.g. 100" required>
+
+    <button onclick="calculateSolvent()">Calculate Solvent to Add</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function calculateSolvent() {
+      const initialResin = parseFloat(document.getElementById('initialResin').value);
+      const finalResin = parseFloat(document.getElementById('finalResin').value);
+      const initialWeight = parseFloat(document.getElementById('initialWeight').value);
+      const resultDiv = document.getElementById('result');
+
+      if (isNaN(initialResin) || isNaN(finalResin) || isNaN(initialWeight) || finalResin === 0) {
+        resultDiv.innerHTML = "Please enter valid numbers. Final Resin % must not be zero.";
+        return;
+      }
+
+      const solvent = (initialWeight * (initialResin - finalResin)) / finalResin;
+      resultDiv.innerHTML = `Solvent to Add: <strong>${solvent.toFixed(2)} kg</strong>`;
+    }
+  </script>
+
+</body>
+</html>
