@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Resin % Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body { font-family: sans-serif; max-width: 400px; margin: auto; padding: 20px; }
+    input, button { display: block; margin: 10px 0; padding: 8px; width: 100%; }
+  </style>
+</head>
+<body>
+  <h2>Resin Dilution Calculator</h2>
+  <label>Initial Resin %</label>
+  <input id="r1" type="number" step="any" />
+
+  <label>Final Resin %</label>
+  <input id="r2" type="number" step="any" />
+
+  <label>Initial Weight (kg)</label>
+  <input id="w1" type="number" step="any" />
+
+  <button onclick="calculate()">Calculate</button>
+  <p id="result"></p>
+
+  <script>
+    function calculate() {
+      let r1 = parseFloat(document.getElementById("r1").value);
+      let r2 = parseFloat(document.getElementById("r2").value);
+      let w1 = parseFloat(document.getElementById("w1").value);
+
+      if (!r1 || !r2 || !w1 || r2 === 0) {
+        document.getElementById("result").innerText = "Please enter valid numbers.";
+        return;
+      }
+
+      let w2 = (r1 * w1) / r2;
+      let solventToAdd = w2 - w1;
+
+      document.getElementById("result").innerText =
+        `You need to add ${solventToAdd.toFixed(2)} kg of solvent.`;
+    }
+  </script>
+</body>
+</html>
